@@ -19,6 +19,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var shareBtn: UIBarButtonItem!
     @IBOutlet weak var toolBar: UIToolbar!
     
+    var activeTextField:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +52,17 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         self.unsubscribeFromKeyboardNotifications()
     }
     
-    func showTextFields(){
-        topText.hidden = false
-        bottomText.hidden = false
+    func setToEditorView(){
         topText.text = "TOP"
         bottomText.text = "BOTTOM"
-    }
-    
-    func hideTextFields(){
-        topText.hidden = true
-        bottomText.hidden = true
+        image.image = nil
     }
     
     func keyboardWillShow(notification: NSNotification){
-        if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
-        }
+        if (activeTextField == "bottomText")
+        {
+            self.view.frame.origin.y -= getKeyboardHeight(notification)}
+      
     }
     
     func keyboardWillHide(notification: NSNotification){
@@ -97,6 +93,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         if textField.text == "TOP" || textField.text == "BOTTOM"{
             textField.text = ""
         }
+        activeTextField = textField.restorationIdentifier!
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -120,18 +117,16 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        print("cancel selecting image")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        print("Image selected!")
         if let selImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             image.image = selImage
             shareBtn.enabled  = true
         }
-        self.showTextFields()
+        //self.setToEditorView()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -149,6 +144,10 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         return memedImage
     }
     
+    @IBAction func cancel(sender: AnyObject) {
+        setToEditorView()
+    }
+    
     @IBAction func shareMeme(sender:AnyObject){
         let memedImage =  generateMemedImage()
         let nextController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
@@ -160,7 +159,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
             let meme = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!,
                             image: self.image.image!, memedImage: memedImage)
             self.image.image = memedImage
-            self.hideTextFields()
+            self.setToEditorView()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
 
