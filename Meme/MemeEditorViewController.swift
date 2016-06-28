@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate,
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate,
 UITextFieldDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var image: UIImageView!
@@ -23,7 +23,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         NSStrokeColorAttributeName : UIColor.blackColor(),
         NSForegroundColorAttributeName : UIColor.whiteColor(),
         NSFontAttributeName : UIFont(name: "Arial Rounded MT Bold", size: 40)!,
-        NSStrokeWidthAttributeName: -1
+        NSStrokeWidthAttributeName: -3
     ]
     
     override func viewDidLoad() {
@@ -61,25 +61,26 @@ UITextFieldDelegate, UINavigationControllerDelegate {
 
     func keyboardWillShow(notification: NSNotification){
         if (bottomText.isFirstResponder()){
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y -= getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillHide(notification: NSNotification){
-        self.view.frame.origin.y = 0
+        view.frame.origin.y = 0
     }
     
     func subscribeToKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         
     }
     
     func unsubscribeFromKeyboardNotifications(){
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func subscribeToKeyboardHideNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
     }
     
