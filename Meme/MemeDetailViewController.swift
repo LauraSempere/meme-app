@@ -11,19 +11,20 @@ import UIKit
 class MemeDetailViewController: UIViewController {
 
     var meme: Meme!
+    var memeIndex: Int!
+    
     @IBOutlet weak var memeImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MemeDetailViewController.editMeme))
-        memeImage.image = meme.image
+        memeImage.image = meme.memedImage
     }
 
     func editMeme(){
-        let editorNavVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorNavigationController") as! UINavigationController
         let editorVC =  storyboard?.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        editorVC.meme = meme
-        
-        self.presentViewController(editorNavVC, animated: true, completion: nil)
+        editorVC.memeIndex = memeIndex
+        editorVC.existingMeme = meme
+        self.navigationController?.pushViewController(editorVC, animated: true)
     }
 }

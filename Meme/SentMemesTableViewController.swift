@@ -21,13 +21,14 @@ class SentMemesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.tabBarController?.tabBar.hidden = false
         memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
         self.tableView.reloadData()
     }
     
     func goToEditMeme(){
-    let editMemeVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorNavigationController") as! UINavigationController
-       self.presentViewController(editMemeVC, animated: true, completion: nil)
+    let editMemeVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+    self.navigationController?.pushViewController(editMemeVC, animated: true)
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,6 +47,7 @@ class SentMemesTableViewController: UITableViewController {
         let detailVC = storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
         let meme = memes[indexPath.row]
         detailVC.meme = meme
+        detailVC.memeIndex = indexPath.row
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 

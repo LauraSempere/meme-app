@@ -92,12 +92,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1695" y="1523"/>
+            <point key="canvasLocation" x="828" y="1323"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="ZMG-KW-HuN">
             <objects>
-                <tabBarController title="Sent Memes" id="CMr-aL-Qjo" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="SentMemesTabBarController" title="Sent Memes" id="CMr-aL-Qjo" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kD0-sT-VJl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -140,24 +140,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kII-yv-e8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1652" y="-181"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="pWm-JZ-fVG">
-            <objects>
-                <navigationController storyboardIdentifier="MemeEditorNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="hbp-TS-5zS" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EMl-uD-AaY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="DTU-qP-zIx"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1hn-hu-pW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="883" y="1523"/>
         </scene>
         <!--Sent Memes-->
         <scene sceneID="DVq-iA-T57">
@@ -237,7 +219,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kvT-WX-eZe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kvT-WX-eZe">
                                 <rect key="frame" x="86" y="112" width="428" height="376"/>
                             </imageView>
                         </subviews>
@@ -248,6 +230,12 @@
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="top" secondItem="Fl0-lZ-my6" secondAttribute="bottom" constant="92" id="aKD-pL-C67"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="centerY" secondItem="JzO-6z-wAb" secondAttribute="centerY" id="an7-Qa-L5C"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GqH-oe-urD"/>
+                                <exclude reference="aKD-pL-C67"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="memeImage" destination="kvT-WX-eZe" id="sdd-o0-df4"/>

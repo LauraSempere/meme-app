@@ -26,20 +26,20 @@ class SentMemesCollectionViewController: UICollectionViewController {
         let height = (view.frame.size.height - (2 * space)) / 6
         
         flowLayout.minimumInteritemSpacing = space
-        //flowLayout.minimumLineSpacing = space / 2
         flowLayout.itemSize = CGSizeMake(width, height)
         
-         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(SentMemesTableViewController.goToEditMeme))
+         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(SentMemesCollectionViewController.goToEditMeme))
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.tabBarController?.tabBar.hidden = false
         memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
         self.collectionView!.reloadData()
     }
     
      func goToEditMeme(){
-        let editMemeVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorNavigationController") as! UINavigationController
-        self.presentViewController(editMemeVC, animated: true, completion: nil)
+        let editMemeVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+        self.navigationController?.pushViewController(editMemeVC, animated: true)
     }
     
     // MARK: UICollectionViewDataSource
@@ -61,36 +61,4 @@ class SentMemesCollectionViewController: UICollectionViewController {
         detailVC.meme = meme
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-
 }

@@ -11,7 +11,10 @@ import UIKit
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate,
 UITextFieldDelegate, UINavigationControllerDelegate {
     
-    var meme: Meme!
+    var memeIndex:Int!
+    var existingMeme: Meme!
+    
+    let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var topText: UITextField!
@@ -33,13 +36,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     
         cameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareBtn.enabled = false
-        if (meme != nil) {
-            image.image = meme.image
-            topText.text = meme.topText
-            bottomText.text = meme.bottomText
-        }else {
-            setToEditorView()}
-        
+        setToEditorView()
         initializeTextField(topText)
         initializeTextField(bottomText)
     }
@@ -58,8 +55,17 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.hidden = true
         subscribeToKeyboardNotifications()
         subscribeToKeyboardHideNotifications()
+        print("Meme Index will appear -- \(memeIndex)")
+        
+        if (existingMeme != nil) {
+         shareBtn.enabled = true
+         image.image = existingMeme.image
+         topText.text = existingMeme.topText
+         bottomText.text = existingMeme.bottomText
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -131,6 +137,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let selImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            existingMeme = nil
             image.image = selImage
             shareBtn.enabled  = true
         }
@@ -151,14 +158,16 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     }
     
     @IBAction func cancel(sender: AnyObject) {
-        setToEditorView()
+        //setToEditorView()
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func shareMeme(sender:AnyObject){
         let memedImage =  generateMemedImage()
         let nextController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         self.presentViewController(nextController, animated: true, completion: nil)
-        
+        //let tabBarVC = storyboard?.instantiateViewControllerWithIdentifier("SentMemesTabBarController") as! UITabBarController
+        let sentMemesVC = storyboard?.instantiateViewControllerWithIdentifier("SentMemesTableViewController") as! SentMemesTableViewController
         nextController.completionWithItemsHandler = {(activityType, completed:Bool,
             returnedObjects:[AnyObject]?, error:NSError?) in
             
@@ -166,11 +175,15 @@ UITextFieldDelegate, UINavigationControllerDelegate {
             let meme = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!,
                             image: self.image.image!, memedImage: memedImage)
             self.image.image = memedImage
-            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
-            let tVC = self.storyboard?.instantiateViewControllerWithIdentifier("SentMemesTableViewController") as! SentMemesTableViewController
-            tVC.tableView.reloadData()
+                if (self.memeIndex != nil) {
+                self.appDelegate.memes[self.memeIndex] = meme
+                }else{
+                    self.appDelegate.memes.append(meme)
+                }
             self.setToEditorView()
-            self.dismissViewControllerAnimated(true, completion: nil)
+                if let initialViewController = self.navigationController?.viewControllers[0] {
+                    self.navigationController?.popToViewController(initialViewController, animated: true)
+                }
             
             }
         }
