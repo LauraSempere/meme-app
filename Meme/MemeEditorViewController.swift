@@ -10,7 +10,9 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate,
 UITextFieldDelegate, UINavigationControllerDelegate {
-
+    
+    var meme: Meme!
+    
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
@@ -31,7 +33,13 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     
         cameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareBtn.enabled = false
-        setToEditorView()
+        if (meme != nil) {
+            image.image = meme.image
+            topText.text = meme.topText
+            bottomText.text = meme.bottomText
+        }else {
+            setToEditorView()}
+        
         initializeTextField(topText)
         initializeTextField(bottomText)
     }
@@ -154,13 +162,17 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         nextController.completionWithItemsHandler = {(activityType, completed:Bool,
             returnedObjects:[AnyObject]?, error:NSError?) in
             
-            if completed{
+            if completed {
             let meme = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!,
                             image: self.image.image!, memedImage: memedImage)
             self.image.image = memedImage
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+            let tVC = self.storyboard?.instantiateViewControllerWithIdentifier("SentMemesTableViewController") as! SentMemesTableViewController
+            tVC.tableView.reloadData()
             self.setToEditorView()
-            }
             self.dismissViewControllerAnimated(true, completion: nil)
+            
+            }
         }
 
     }
