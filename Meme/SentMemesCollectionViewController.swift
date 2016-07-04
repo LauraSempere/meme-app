@@ -26,6 +26,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
         let height = (view.frame.size.height - (2 * space)) / 6
         
         flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
         flowLayout.itemSize = CGSizeMake(width, height)
         
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(SentMemesCollectionViewController.goToEditMeme))
@@ -38,8 +39,8 @@ class SentMemesCollectionViewController: UICollectionViewController {
     }
     
      func goToEditMeme(){
-        let editMemeVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        self.navigationController?.pushViewController(editMemeVC, animated: true)
+        let memeEditorVC = storyboard?.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+        self.navigationController?.pushViewController(memeEditorVC, animated: true)
     }
     
     // MARK: UICollectionViewDataSource
@@ -59,6 +60,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
         let detailVC = storyboard?.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
         let meme = memes[indexPath.item]
         detailVC.meme = meme
+        detailVC.memeIndex = indexPath.item
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

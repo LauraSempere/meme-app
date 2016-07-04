@@ -58,7 +58,6 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         self.tabBarController?.tabBar.hidden = true
         subscribeToKeyboardNotifications()
         subscribeToKeyboardHideNotifications()
-        print("Meme Index will appear -- \(memeIndex)")
         
         if (existingMeme != nil) {
          shareBtn.enabled = true
@@ -136,9 +135,9 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let selImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+        if let selectedImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             existingMeme = nil
-            image.image = selImage
+            image.image = selectedImage
             shareBtn.enabled  = true
         }
         dismissViewControllerAnimated(true, completion: nil)
@@ -157,33 +156,34 @@ UITextFieldDelegate, UINavigationControllerDelegate {
         return memedImage
     }
     
+    func goToSentMeme(){
+        if let initialViewController = self.navigationController?.viewControllers[0] {
+            self.navigationController?.popToViewController(initialViewController, animated: true)
+        }
+    }
+    
     @IBAction func cancel(sender: AnyObject) {
-        //setToEditorView()
-        self.navigationController?.popViewControllerAnimated(true)
+        goToSentMeme()
     }
     
     @IBAction func shareMeme(sender:AnyObject){
         let memedImage =  generateMemedImage()
         let nextController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         self.presentViewController(nextController, animated: true, completion: nil)
-        //let tabBarVC = storyboard?.instantiateViewControllerWithIdentifier("SentMemesTabBarController") as! UITabBarController
-        let sentMemesVC = storyboard?.instantiateViewControllerWithIdentifier("SentMemesTableViewController") as! SentMemesTableViewController
+        
         nextController.completionWithItemsHandler = {(activityType, completed:Bool,
             returnedObjects:[AnyObject]?, error:NSError?) in
             
             if completed {
-            let meme = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!,
+                let meme = Meme(topText: self.topText.text!, bottomText: self.bottomText.text!,
                             image: self.image.image!, memedImage: memedImage)
-            self.image.image = memedImage
-                if (self.memeIndex != nil) {
-                self.appDelegate.memes[self.memeIndex] = meme
-                }else{
-                    self.appDelegate.memes.append(meme)
-                }
-            self.setToEditorView()
-                if let initialViewController = self.navigationController?.viewControllers[0] {
-                    self.navigationController?.popToViewController(initialViewController, animated: true)
-                }
+                self.image.image = memedImage
+                    if (self.memeIndex != nil) {
+                        self.appDelegate.memes[self.memeIndex] = meme
+                    }else{
+                        self.appDelegate.memes.append(meme)
+                    }
+                self.goToSentMeme()
             
             }
         }
