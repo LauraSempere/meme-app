@@ -22,11 +22,11 @@ class SentMemesCollectionViewController: UICollectionViewController {
         memes = applicationDelegate.memes
         
         let space: CGFloat = 3.0
-        let width = (view.frame.size.width - (2 * space)) / 3.0
-        let height = (view.frame.size.height - (2 * space)) / 6
+        let width = (view.frame.size.width - (2 * space)) / space
+        let height = (view.frame.size.height - (2 * space)) / space
         
         flowLayout.minimumInteritemSpacing = space
-        flowLayout.minimumLineSpacing = space
+        flowLayout.minimumLineSpacing = space / 10
         flowLayout.itemSize = CGSizeMake(width, height)
         
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(SentMemesCollectionViewController.goToEditMeme))

@@ -18,11 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-YX-fSb">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7fJ-YX-fSb">
+                                <rect key="frame" x="0.0" y="-44" width="600" height="644"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="topText" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdH-bo-EQO">
-                                <rect key="frame" x="0.0" y="103" width="600" height="17"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" restorationIdentifier="topText" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdH-bo-EQO">
+                                <rect key="frame" x="0.0" y="59" width="600" height="17"/>
                                 <accessibility key="accessibilityConfiguration" identifier="top"/>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -219,20 +219,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kvT-WX-eZe">
-                                <rect key="frame" x="0.0" y="65" width="600" height="465"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kvT-WX-eZe">
+                                <rect key="frame" x="0.0" y="65" width="600" height="470"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="top" secondItem="Fl0-lZ-my6" secondAttribute="bottom" constant="92" id="578-fD-PLL"/>
+                            <constraint firstItem="kvT-WX-eZe" firstAttribute="top" secondItem="Fl0-lZ-my6" secondAttribute="bottom" constant="45" id="Cke-Bo-GyO"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="centerY" secondItem="JzO-6z-wAb" secondAttribute="centerY" id="Cmm-gZ-Jbt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kvT-WX-eZe" secondAttribute="trailing" constant="66" id="GqH-oe-urD"/>
+                            <constraint firstItem="kvT-WX-eZe" firstAttribute="leading" secondItem="JzO-6z-wAb" secondAttribute="leadingMargin" constant="-20" id="KW6-MZ-x35"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="centerX" secondItem="JzO-6z-wAb" secondAttribute="centerX" id="Q9t-hH-swV"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="centerX" secondItem="JzO-6z-wAb" secondAttribute="centerX" id="SUQ-8N-Ho0"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="top" secondItem="Fl0-lZ-my6" secondAttribute="bottom" constant="92" id="aKD-pL-C67"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="centerY" secondItem="JzO-6z-wAb" secondAttribute="centerY" id="an7-Qa-L5C"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kvT-WX-eZe" secondAttribute="trailing" constant="-20" id="ptl-Jl-S9d"/>
                             <constraint firstItem="kvT-WX-eZe" firstAttribute="leading" secondItem="JzO-6z-wAb" secondAttribute="leadingMargin" constant="66" id="vOz-au-36q"/>
+                            <constraint firstItem="pjd-Op-xpR" firstAttribute="top" secondItem="kvT-WX-eZe" secondAttribute="bottom" constant="70" id="y4d-am-fLK"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -242,6 +246,7 @@
                                 <exclude reference="aKD-pL-C67"/>
                                 <exclude reference="an7-Qa-L5C"/>
                                 <exclude reference="vOz-au-36q"/>
+                                <exclude reference="y4d-am-fLK"/>
                             </mask>
                         </variation>
                     </view>

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  Meme
 //
 //  Created by Laura Scully on 25/6/2016.
@@ -32,9 +32,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     ]
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        cameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        super.viewDidLoad() 
         shareBtn.enabled = false
         setToEditorView()
         initializeTextField(topText)
@@ -55,6 +53,7 @@ UITextFieldDelegate, UINavigationControllerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        cameraBtn.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         self.tabBarController?.tabBar.hidden = true
         subscribeToKeyboardNotifications()
         subscribeToKeyboardHideNotifications()
